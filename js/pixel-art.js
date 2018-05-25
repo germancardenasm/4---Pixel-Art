@@ -20,7 +20,7 @@ var nombreColores = ['White', 'LightYellow',
   'DimGray', 'LightSlateGray', 'DarkSlateGray', 'Black'
 ];
 
-// Variable para guardar el elemento 'color-personalizado'
+// Variable para guardar el elemento 'color-personalizado'..
 // Es decir, el que se elige con la rueda de color.
 var colorPersonalizado = document.getElementById('color-personalizado');
 
