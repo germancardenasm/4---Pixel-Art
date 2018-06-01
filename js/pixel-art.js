@@ -49,7 +49,7 @@ function generarPaleta(listaDeColores){
   }
 }
 
-/*Funcion que genera el canvas cuadriculado sobre el que se va a dibujar en cuadricula de 15x15 px*/
+/*Funcion que genera el canvas cuadriculado sobre el que se va a dibujar en cuadricula de 15x15 px.*/
 function generarGrilla(){
   for(var i=0; i<1750; i++){
      var nuevoDiv = document.createElement("div");
