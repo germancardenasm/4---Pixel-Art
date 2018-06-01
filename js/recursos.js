@@ -1,4 +1,4 @@
-// No modifiques estas funciones a menos que sepas MUY BIEN lo que estas haciendo!
+// No modifiques estas funciones a menos que sepas MUY BIEN lo que estas haciendo!..
 
 
 // Abre una ventana para guardar nuestro arte en un archivo pixel-art.png
