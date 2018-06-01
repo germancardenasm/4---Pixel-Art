@@ -88,7 +88,7 @@ input[type="color"]::-webkit-color-swatch {
   width: 15px;
   cursor: pointer;
   margin: 0;
-    outline: 1px solid white;
+  outline: 1px solid white;
 }
 
 .custom {

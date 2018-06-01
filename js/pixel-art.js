@@ -20,6 +20,10 @@ var nombreColores = ['White', 'LightYellow',
   'DimGray', 'LightSlateGray', 'DarkSlateGray', 'Black'
 ];
 
+//Variables globales paleta y grilla-pixeles
+var paleta = document.querySelector("#paleta");
+var grilla = document.querySelector("#grilla-pixeles")
+
 // Variable para guardar el elemento 'color-personalizado'..
 // Es decir, el que se elige con la rueda de color.
 var colorPersonalizado = document.getElementById('color-personalizado');
@@ -33,3 +37,27 @@ colorPersonalizado.addEventListener('change',
 
   })
 );
+
+/*Funcion que genera la paleta de colores que se podran seleccionar para dibujar
+  Recibe un arreglo de colores y genera una grilla con "Pixeles" de 15x15 px que continen los colores del arreglo*/
+function generarPaleta(listaDeColores){
+  for(var i=0; i<listaDeColores.length; i++){
+     var nuevoDiv = document.createElement("div");
+     nuevoDiv.style.backgroundColor = listaDeColores[i];
+     nuevoDiv.className = "color-paleta";
+     paleta.appendChild(nuevoDiv);
+  }
+}
+
+/*Funcion que genera el canvas cuadriculado sobre el que se va a dibujar en cuadricula de 15x15 px*/
+function generarGrilla(){
+  for(var i=0; i<1750; i++){
+     var nuevoDiv = document.createElement("div");
+     //nuevoDiv.className = "color-paleta";
+     grilla.appendChild(nuevoDiv);
+  }
+}
+
+//LLamado de funciones principales de genracion de Paleta y grilla
+generarPaleta(nombreColores);
+generarGrilla();
