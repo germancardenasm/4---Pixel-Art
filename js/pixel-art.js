@@ -23,7 +23,7 @@ var nombreColores = ['White', 'LightYellow',
 //Variables globales paleta y grilla-pixeles
 var paleta = document.querySelector("#paleta");
 var grilla = document.querySelector("#grilla-pixeles")
-
+var colorSeleccionado = "black";
 // Variable para guardar el elemento 'color-personalizado'..
 // Es decir, el que se elige con la rueda de color.
 var colorPersonalizado = document.getElementById('color-personalizado');
@@ -47,26 +47,48 @@ function generarPaleta(listaDeColores){
      nuevoDiv.className = "color-paleta";
      paleta.appendChild(nuevoDiv);
   }
+  //Establece el negro como el color inicial para dibujar al inciar la aplicacion.
+  document.getElementById("indicador-de-color").style.backgroundColor="black";
+
 }
 
 /*Funcion que genera el canvas cuadriculado sobre el que se va a dibujar en cuadricula de 15x15 px.*/
 function generarGrilla(){
   for(var i=0; i<1750; i++){
      var nuevoDiv = document.createElement("div");
-     //nuevoDiv.className = "color-paleta";
+     nuevoDiv.id = "pixel"+i;
+     nuevoDiv.className="pixeles"
      grilla.appendChild(nuevoDiv);
   }
 }
 
+/*Funcion encargada de seleccionar un color de la paleta segun la decision del usuario al 
+hacer click sobre la paleta*/
 function seleccionarColor(e){
-  var colorSeleccionado = e.target.style.backgroundColor;
-  var visualizadorDePincel = document.querySelector("#indicador-de-color");
+  colorSeleccionado = e.target.style.backgroundColor;
+  var visualizadorDePincel = document.querySelector("#indicador-de-color  ");
   visualizadorDePincel.style.backgroundColor = colorSeleccionado;
 }
 
-/*Eventos generados por el mouse*/
-paleta.addEventListener("mousedown",seleccionarColor)
+/*Funcion encargada de pintar en la grilla segun el color seleccionado por el usuario*/
+function pintarColor(e){
+  e.target.style.backgroundColor = colorSeleccionado;
+} 
+
+/*Funcion encargada de generar un eventListener por cada pixel*/
+function agregarUnEventListenerPixeles(){
+  for(var i = 0; i < 1750; i++){
+    var pixel = document.querySelector("#pixel"+i);
+    pixel.addEventListener("mousedown",pintarColor);
+  }
+}
 
 //LLamado de funciones principales de genracion de Paleta y grilla
 generarPaleta(nombreColores);
 generarGrilla();
+agregarUnEventListenerPixeles();
+
+
+/*Eventos generados por el mouse*/
+var pixelesEnGrilla =  document.querySelectorAll(".pixeles");
+paleta.addEventListener("mousedown",seleccionarColor);
