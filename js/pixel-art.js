@@ -58,6 +58,15 @@ function generarGrilla(){
   }
 }
 
+function seleccionarColor(e){
+  var colorSeleccionado = e.target.style.backgroundColor;
+  var visualizadorDePincel = document.querySelector("#indicador-de-color");
+  visualizadorDePincel.style.backgroundColor = colorSeleccionado;
+}
+
+/*Eventos generados por el mouse*/
+paleta.addEventListener("mousedown",seleccionarColor)
+
 //LLamado de funciones principales de genracion de Paleta y grilla
 generarPaleta(nombreColores);
 generarGrilla();
