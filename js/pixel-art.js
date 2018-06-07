@@ -24,6 +24,7 @@ var nombreColores = ['White', 'LightYellow',
 var paleta = document.querySelector("#paleta");
 var grilla = document.querySelector("#grilla-pixeles")
 var colorSeleccionado = "black";
+var estadoDelMouse = false;
 // Variable para guardar el elemento 'color-personalizado'..
 // Es decir, el que se elige con la rueda de color.
 var colorPersonalizado = document.getElementById('color-personalizado');
@@ -72,16 +73,30 @@ function seleccionarColor(e){
 
 /*Funcion encargada de pintar en la grilla segun el color seleccionado por el usuario*/
 function pintarColor(e){
-  e.target.style.backgroundColor = colorSeleccionado;
+   if(estadoDelMouse == true){
+    e.target.style.backgroundColor = colorSeleccionado;
+  }
 } 
 
 /*Funcion encargada de generar un eventListener por cada pixel*/
 function agregarUnEventListenerPixeles(){
   for(var i = 0; i < 1750; i++){
     var pixel = document.querySelector("#pixel"+i);
-    pixel.addEventListener("mousedown",pintarColor);
+    pixel.addEventListener("mouseover",pintarColor);
   }
 }
+
+/*funciones que detectan si el boton del mouse esta oprimido o no*/
+function mouseOprimido(e){
+  console.log("detecto mouse oprimido");
+  estadoDelMouse = true;
+  pintarColor(e);
+} 
+function mouseLiberado(e){
+  console.log("detecto libero mouse");
+  estadoDelMouse = false;
+} 
+
 
 //LLamado de funciones principales de genracion de Paleta y grilla
 generarPaleta(nombreColores);
@@ -92,3 +107,5 @@ agregarUnEventListenerPixeles();
 /*Eventos generados por el mouse*/
 var pixelesEnGrilla =  document.querySelectorAll(".pixeles");
 paleta.addEventListener("mousedown",seleccionarColor);
+grilla.addEventListener("mousedown", mouseOprimido);
+window.addEventListener("mouseup", mouseLiberado);
