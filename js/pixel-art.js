@@ -23,8 +23,14 @@ var nombreColores = ['White', 'LightYellow',
 //Variables globales paleta y grilla-pixeles
 var paleta = document.querySelector("#paleta");
 var grilla = document.querySelector("#grilla-pixeles")
-var colorSeleccionado = "black";
+var colorSeleccionado = "black"
+var $pixeles = 0;
 var estadoDelMouse = false;
+
+$(document).ready( function(){
+  $pixeles = $(".pixeles");
+});
+
 // Variable para guardar el elemento 'color-personalizado'..
 // Es decir, el que se elige con la rueda de color.
 var colorPersonalizado = document.getElementById('color-personalizado');
@@ -109,3 +115,7 @@ var pixelesEnGrilla =  document.querySelectorAll(".pixeles");
 paleta.addEventListener("mousedown",seleccionarColor);
 grilla.addEventListener("mousedown", mouseOprimido);
 window.addEventListener("mouseup", mouseLiberado);
+//Borra los pixeles al dar click en el boton Borrar
+$("#borrar").click(function(){
+  $pixeles.animate({"backgroundColor":"white"},1500);
+});
