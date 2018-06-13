@@ -94,12 +94,10 @@ function agregarUnEventListenerPixeles(){
 
 /*funciones que detectan si el boton del mouse esta oprimido o no*/
 function mouseOprimido(e){
-  console.log("detecto mouse oprimido");
   estadoDelMouse = true;
   pintarColor(e);
 } 
 function mouseLiberado(e){
-  console.log("detecto libero mouse");
   estadoDelMouse = false;
 } 
 
@@ -110,12 +108,21 @@ generarGrilla();
 agregarUnEventListenerPixeles();
 
 
-/*Eventos generados por el mouse*/
-var pixelesEnGrilla =  document.querySelectorAll(".pixeles");
+/*  -----Eventos generados por el mouse-----   */
+
+/*Funcion que permite seleccionar un color de la paleta de colores para pintar los pixeles*/
 paleta.addEventListener("mousedown",seleccionarColor);
+
+/*Funcion que detecta cuando el mouse es oprimido dentro de la grilla 
+y guarda el estado en la variable "estadoDelMouse" ademas inicia la funcion 
+"pintaColor(w)" para empezar a pintar los pixeles del color seleccionado*/
 grilla.addEventListener("mousedown", mouseOprimido);
+
+/*Funcion que detecta cuando el boton del mouse es liberado y guarda el estado 
+en la variable "estadoDelMouse" para dejar de pintar*/
 window.addEventListener("mouseup", mouseLiberado);
-//Borra los pixeles al dar click en el boton Borrar
+
+// Borra los pixeles al dar click en el boton Borrar
 $("#borrar").click(function(){
   $pixeles.animate({"backgroundColor":"white"},1500);
 });
