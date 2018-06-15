@@ -126,3 +126,11 @@ window.addEventListener("mouseup", mouseLiberado);
 $("#borrar").click(function(){
   $pixeles.animate({"backgroundColor":"white"},1500);
 });
+
+
+//funcion provisional que detecta que imagen se le dio click.
+$(".imgs").click(function(event){  
+         var $imagen = window[event.target.id];
+         cargarSuperheroe($imagen);
+    });
+
