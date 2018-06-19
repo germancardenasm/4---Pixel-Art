@@ -26,7 +26,7 @@ var grilla = document.querySelector("#grilla-pixeles")
 var colorSeleccionado = "black"
 var $pixeles = 0;
 var estadoDelMouse = false;
-
+var visualizadorDePincel = document.querySelector("#indicador-de-color");
 $(document).ready( function(){
   $pixeles = $(".pixeles");
 });
@@ -40,8 +40,8 @@ colorPersonalizado.addEventListener('change',
     // Se guarda el color de la rueda en colorActual
     colorActual = colorPersonalizado.value;
     // Completar para que cambie el indicador-de-color al colorActual
-
-
+    visualizadorDePincel.style.backgroundColor = colorActual;
+    colorSeleccionado = colorActual;
   })
 );
 
@@ -73,7 +73,6 @@ function generarGrilla(){
 hacer click sobre la paleta*/
 function seleccionarColor(e){
   colorSeleccionado = e.target.style.backgroundColor;
-  var visualizadorDePincel = document.querySelector("#indicador-de-color  ");
   visualizadorDePincel.style.backgroundColor = colorSeleccionado;
 }
 
