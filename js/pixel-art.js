@@ -146,27 +146,13 @@ function downloadCanvas(canvasId, filename) {
   // Utilizando la función html2canvas para hacer la conversión
   html2canvas(domElement, {
       onrendered: function(domElementCanvas) {
-          // Obteniendo el contexto del canvas ya generado
-          var context = domElementCanvas.getContext('2d');
 
           // Creando enlace para descargar la imagen generada
           var link = document.createElement('a');
           link.href = domElementCanvas.toDataURL("image/png");
           link.download = filename;
+          link.click();
 
-          // Chequeando para browsers más viejos
-          if (document.createEvent) {
-              var event = document.createEvent('MouseEvents');
-              // Simulando clic para descargar
-              event.initMouseEvent("click", true, true, window, 0,
-                  0, 0, 0, 0,
-                  false, false, false, false,
-                  0, null);
-              link.dispatchEvent(event);
-          } else {
-              // Simulando clic para descargar
-              link.click();
-          }
       }
   });
 }
