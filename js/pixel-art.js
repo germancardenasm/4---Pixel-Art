@@ -1,3 +1,5 @@
+
+
 var nombreColores = ['White', 'LightYellow',
   'LemonChiffon', 'LightGoldenrodYellow', 'PapayaWhip', 'Moccasin', 'PeachPuff', 'PaleGoldenrod', 'Bisque', 'NavajoWhite', 'Wheat', 'BurlyWood', 'Tan',
   'Khaki', 'Yellow', 'Gold', 'Orange', 'DarkOrange', 'OrangeRed', 'Tomato', 'Coral', 'DarkSalmon', 'LightSalmon', 'LightCoral', 'Salmon', 'PaleVioletRed',
@@ -27,6 +29,7 @@ var colorSeleccionado = "black"
 var $pixeles = 0;
 var estadoDelMouse = false;
 var visualizadorDePincel = document.querySelector("#indicador-de-color");
+
 $(document).ready( function(){
   $pixeles = $(".pixeles");
 });
@@ -37,16 +40,16 @@ var colorPersonalizado = document.getElementById('color-personalizado');
 
 colorPersonalizado.addEventListener('change', 
   (function() {
-    // Se guarda el color de la rueda en colorActual
-    colorActual = colorPersonalizado.value;
-    // Completar para que cambie el indicador-de-color al colorActual
-    visualizadorDePincel.style.backgroundColor = colorActual;
-    colorSeleccionado = colorActual;
+    // Se guarda el color de la rueda en directamente en la variable del color seleccionado para pintar 
+    colorSeleccionado = colorPersonalizado.value;
+    // Cambio el color de la ventanilla que muestra el color seleccionado.
+    visualizadorDePincel.style.backgroundColor = colorSeleccionado;
   })
 );
 
 /*Funcion que genera la paleta de colores que se podran seleccionar para dibujar
-  Recibe un arreglo de colores y genera una grilla con "Pixeles" de 15x15 px que continen los colores del arreglo*/
+  Recibe un arreglo de colores y genera una grilla con "Pixeles" de 15x15 px que 
+  continen los colores del arreglo*/
 function generarPaleta(listaDeColores){
   for(var i=0; i<listaDeColores.length; i++){
      var nuevoDiv = document.createElement("div");
@@ -54,9 +57,9 @@ function generarPaleta(listaDeColores){
      nuevoDiv.className = "color-paleta";
      paleta.appendChild(nuevoDiv);
   }
+
   //Establece el negro como el color inicial para dibujar al inciar la aplicacion.
   document.getElementById("indicador-de-color").style.backgroundColor="black";
-
 }
 
 /*Funcion que genera el canvas cuadriculado sobre el que se va a dibujar en cuadricula de 15x15 px.*/
@@ -91,11 +94,13 @@ function agregarUnEventListenerPixeles(){
   }
 }
 
-/*funciones que detectan si el boton del mouse esta oprimido o no*/
+/*funciones que detectan si el boton del mouse fue oprimido */
 function mouseOprimido(e){
   estadoDelMouse = true;
   pintarColor(e);
 } 
+
+/*funciones que detectan si el boton del mouse fue liberado */
 function mouseLiberado(e){
   estadoDelMouse = false;
 } 
@@ -113,23 +118,60 @@ agregarUnEventListenerPixeles();
 paleta.addEventListener("mousedown",seleccionarColor);
 
 /*Funcion que detecta cuando el mouse es oprimido dentro de la grilla 
-y guarda el estado en la variable "estadoDelMouse" ademas inicia la funcion 
+y guarda el estado en la variable "estadoDelMouse", ademas inicia la funcion 
 "pintaColor(w)" para empezar a pintar los pixeles del color seleccionado*/
 grilla.addEventListener("mousedown", mouseOprimido);
 
 /*Funcion que detecta cuando el boton del mouse es liberado y guarda el estado 
-en la variable "estadoDelMouse" para dejar de pintar*/
+en la variable "estadoDelMouse"*/
 window.addEventListener("mouseup", mouseLiberado);
 
-// Borra los pixeles al dar click en el boton Borrar
+// Borra los pixeles al dar click en el boton Borrar con efecto 
 $("#borrar").click(function(){
-  $pixeles.animate({"backgroundColor":"white"},1500);
+  $pixeles.animate({"backgroundColor":"white"},1000);
 });
 
-
-//funcion provisional que detecta que imagen se le dio click.
+//funcion a que detecta que imagen se le dio click.
 $(".imgs").click(function(event){  
          var $imagen = window[event.target.id];
          cargarSuperheroe($imagen);
     });
 
+
+
+function downloadCanvas(canvasId, filename) {
+  // Obteniendo la etiqueta la cual se desea convertir en imagen
+  var domElement = document.getElementById(canvasId);
+
+  // Utilizando la función html2canvas para hacer la conversión
+  html2canvas(domElement, {
+      onrendered: function(domElementCanvas) {
+          // Obteniendo el contexto del canvas ya generado
+          var context = domElementCanvas.getContext('2d');
+
+          // Creando enlace para descargar la imagen generada
+          var link = document.createElement('a');
+          link.href = domElementCanvas.toDataURL("image/png");
+          link.download = filename;
+
+          // Chequeando para browsers más viejos
+          if (document.createEvent) {
+              var event = document.createEvent('MouseEvents');
+              // Simulando clic para descargar
+              event.initMouseEvent("click", true, true, window, 0,
+                  0, 0, 0, 0,
+                  false, false, false, false,
+                  0, null);
+              link.dispatchEvent(event);
+          } else {
+              // Simulando clic para descargar
+              link.click();
+          }
+      }
+  });
+}
+
+// Haciendo la conversión y descarga de la imagen al presionar el botón
+$("#guardar").click(function() {
+  downloadCanvas('grilla-pixeles', 'imagen.png');
+});
