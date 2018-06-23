@@ -141,14 +141,15 @@ img {
    margin: 10px 0;
    justify-content: space-between;
  }
+
 #indicador-de-color {
   height: 30px;
   width: 30px;
   border: 1px solid white;
   margin: 0;
   position: relative;
-
 }
+
 #indicador-de-color:after {
   content: "";
   position: absolute;
@@ -159,8 +160,27 @@ img {
   width: 29px;
   background: url(../img/empty.gif);
 }
+
 #indicador-de-color-mensaje {
   color: white;
+}
+
+#borrador {
+  height: 30px;
+  width: 30px;
+  border: 1px solid white;
+  border-radius: 15px;
+  background-color: white;
+  margin: 0;
+  position: relative;
+}
+
+#mensaje-borrador{
+  color: white;
+}
+
+.cursor-borrador {
+  cursor: url(../img/eraser-icon.png), auto;
 }
 
 #result {

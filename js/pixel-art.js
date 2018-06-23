@@ -26,6 +26,7 @@ var nombreColores = ['White', 'LightYellow',
 var paleta = document.querySelector("#paleta");
 var grilla = document.querySelector("#grilla-pixeles")
 var colorSeleccionado = "black"
+var borradorSeleccionado=false;
 var $pixeles = 0;
 var estadoDelMouse = false;
 var visualizadorDePincel = document.querySelector("#indicador-de-color");
@@ -77,6 +78,7 @@ hacer click sobre la paleta*/
 function seleccionarColor(e){
   colorSeleccionado = e.target.style.backgroundColor;
   visualizadorDePincel.style.backgroundColor = colorSeleccionado;
+  seleccionarCursor("cursor-personalizado");
 }
 
 /*Funcion encargada de pintar en la grilla segun el color seleccionado por el usuario*/
@@ -105,6 +107,10 @@ function mouseLiberado(e){
   estadoDelMouse = false;
 } 
 
+//Funcion para asignar tipo de cursor
+function seleccionarCursor(cursor){
+  $("#grilla-pixeles").attr("class", cursor);
+}
 
 //LLamado de funciones principales de genracion de Paleta y grilla
 generarPaleta(nombreColores);
@@ -126,6 +132,19 @@ grilla.addEventListener("mousedown", mouseOprimido);
 en la variable "estadoDelMouse"*/
 window.addEventListener("mouseup", mouseLiberado);
 
+//Funcion para seleccionar pincel
+$("#indicador-de-color").click( function(){
+  seleccionarCursor("cursor-personalizado");
+  colorSeleccionado=this.style.backgroundColor;
+});
+
+//Funcion para seleccionar el borrador
+$("#borrador").click( function(){
+  seleccionarCursor("cursor-borrador");
+  colorSeleccionado="white";
+});
+
+
 // Borra los pixeles al dar click en el boton Borrar con efecto 
 $("#borrar").click(function(){
   $pixeles.animate({"backgroundColor":"white"},1000);
@@ -146,18 +165,15 @@ function downloadCanvas(canvasId, filename) {
   // Utilizando la función html2canvas para hacer la conversión
   html2canvas(domElement, {
       onrendered: function(domElementCanvas) {
-  
-        
           var link = document.createElement('a');
           link.href = domElementCanvas.toDataURL("image/png");
           link.download = filename;
           link.click(); 
-         
       }
   });
 }
 
-// Haciendo la conversión y descarga de la imagen al presionar el botón
-$("#guardar").click(function() {
+// descarga de la imagen al presionar el botón
+$("#guardar").click(function(e) {
   downloadCanvas('grilla-pixeles', 'imagen.png');
 });
