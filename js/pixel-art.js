@@ -146,13 +146,13 @@ function downloadCanvas(canvasId, filename) {
   // Utilizando la función html2canvas para hacer la conversión
   html2canvas(domElement, {
       onrendered: function(domElementCanvas) {
-
-          // Creando enlace para descargar la imagen generada
+  
+        
           var link = document.createElement('a');
           link.href = domElementCanvas.toDataURL("image/png");
           link.download = filename;
-          link.click();
-
+          link.click(); 
+         
       }
   });
 }
