@@ -159,7 +159,9 @@ $(".imgs").click(function(event){
 
 
 function downloadCanvas(canvasId, filename) {
-  // Obteniendo la etiqueta la cual se desea convertir en imagen
+  
+  /*No logre usar directamente la funcion saveAs() asi que agradeceria si en el feedback
+que me den de este proyecto me podrian decir como se usa */
   var domElement = document.getElementById(canvasId);
 
   // Utilizando la función html2canvas para hacer la conversión
@@ -173,7 +175,8 @@ function downloadCanvas(canvasId, filename) {
   });
 }
 
-// descarga de la imagen al presionar el botón
+/*  Funcion de descarga de la imagen al presionar el botón*/
+
 $("#guardar").click(function(e) {
   downloadCanvas('grilla-pixeles', 'imagen.png');
 });
